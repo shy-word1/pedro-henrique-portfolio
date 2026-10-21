@@ -42,3 +42,77 @@
 @keyframes labScan{0%{left:-35%}100%{left:115%}}
 @keyframes labEnter{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.hero-art,.hero-copy .hero-line:first-child,.hero-copy .hero-line.outline,.art-frame:after,.project,.lab-shell:before,.lab-widget{animation:none!important}}
+
+/* SK8 EDITION — ALL BLACK / concrete / photocopy */
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Permanent+Marker&display=swap');
+:root{--bg:#050505;--white:#f3f3f3;--muted:#888;--line:rgba(255,255,255,.17);--red:#f0f0f0;--max:1240px;color:#f3f3f3;background:#050505}
+html,body,.portfolio{background:#050505;color:#f3f3f3}
+::selection{background:#f3f3f3;color:#050505}
+button:focus-visible,a:focus-visible{outline-color:#fff}
+.topbar{background:rgba(5,5,5,.94);border-bottom:1px solid #ffffff20}
+.brand-mark{border:1px solid #eee;transform:rotate(-5deg);font-family:'Archivo Black',sans-serif}
+.brand-mark span{color:#777}
+.nav-cta,.button-primary{background:#f2f2f2!important;color:#050505!important;border-color:#f2f2f2!important}
+.nav-cta:hover,.button-primary:hover{background:#bdbdbd!important}
+.hero{background:#050505}
+.hero-grid{opacity:.12;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:80px 80px}
+.hero h1,.skills-heading h2,.work-heading h2,.lab-heading h2,.process-heading h2,.universe>h2,.contact h2{font-family:'Archivo Black','Space Grotesk',sans-serif;letter-spacing:-.085em}
+.hero-line.outline{color:transparent;-webkit-text-stroke:1px #f2f2f2}
+.hero-star{color:#777}
+.eyebrow i,.header-status i,.pulse-dot,.lab-live i{background:#eee;box-shadow:0 0 9px #ffffff88}
+.kicker,.section-no,.project-meta>span:first-child,.art-top,.art-bottom,.art-index>span,.vertical,.hero-meta,.hero-description span,.text-link,.section-side,.manifesto-label{color:#999}
+.art-frame{border:1px solid #777;box-shadow:14px 14px 0 #ffffff0a;filter:grayscale(1)}
+.art-frame img,.gallery-main img{filter:grayscale(1) contrast(1.15) brightness(.78)}
+.art-frame:before{content:"";position:absolute;z-index:5;inset:10px;border:1px solid #ffffff33;pointer-events:none}
+.art-center{font-family:'Archivo Black',sans-serif;color:#f4f4f4;text-shadow:3px 3px 0 #000}
+.art-center span{color:#777}
+.sticker{background:#f3f3f3;color:#050505;transform:rotate(9deg);font-family:'Permanent Marker',cursive;box-shadow:5px 5px 0 #ffffff15}
+.sticker b{color:#777}
+.art-dot{border-color:#777;color:#888}.art-dot.active{background:#eee;color:#050505;border-color:#eee}
+.ticker{background:#eee!important;color:#050505!important;border-color:#eee!important}
+.ticker b{color:#555!important}
+.section,.manifesto{background:#050505}
+.skill-card,.project,.lab-shell,.gallery-side article,.dashboard-mini>div{background:#080808;border-color:#ffffff26}
+.skill-card:hover,.project:hover{border-color:#eee;box-shadow:5px 5px 0 #ffffff12}
+.skill-symbol,.project-symbol,.project-arrow,.note-symbol{color:#aaa}
+.skill-line{background:#333}.skill-line span{background:#eee}
+.learning-note{border-color:#ffffff26;background:#080808}
+.project-search,.project-search input,.lab-form input,.lab-label input:not([type=range]){background:#070707;color:#eee}
+.filter.active,.filter:hover{background:#eee!important;border-color:#eee!important;color:#050505!important}
+.project-demo,.show-more,.lab-button.ghost{border-color:#666;color:#eee;background:#0a0a0a}
+.project-demo:hover,.show-more:hover,.lab-button.ghost:hover{background:#eee;border-color:#eee;color:#050505}
+.lab-section{background:#050505}
+.lab-menu-item:hover,.lab-menu-item.active{background:#ffffff0a;color:#fff;border-left-color:#eee}
+.lab-menu-item.active span,.lab-menu-item.active b,.lab-overline{color:#ddd}
+.lab-shell:before{background:#eee;box-shadow:0 0 18px #ffffff88}
+.lab-button{background:#eee;color:#050505;border-color:#eee}
+.lab-button:hover{background:#bcbcbc;border-color:#bcbcbc}
+.calc-key.accent,.calc-key.accent:hover{color:#eee;border-color:#777}
+.calc-key.accent:hover{background:#292929}
+.lab-form input:focus,.lab-label input:focus{border-color:#eee}
+.lab-check,.word-target,.converter-result,.quiz-result{color:#eee}
+.preset.active,.preset:hover{border-color:#eee;color:#eee}
+.quiz-answers button:hover{border-color:#eee;background:#ffffff0b}
+.gallery-main{filter:grayscale(1);border:1px solid #555}
+.gallery-label,.gallery-caption small{color:#aaa}
+.gallery-caption{font-family:'Archivo Black',sans-serif}
+.gallery-side article{border-left:2px solid #777}
+.gallery-side article>span{color:#999}
+.interest-strip span{border-color:#444;color:#aaa}
+.manifesto{position:relative;isolation:isolate;background:#080808!important;border-top:1px solid #ffffff24;border-bottom:1px solid #ffffff24}
+.manifesto:before{content:"SKATE / CREATE / REPEAT";position:absolute;z-index:-1;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-7deg);font:clamp(35px,9vw,125px) 'Archivo Black',sans-serif;white-space:nowrap;color:#ffffff05;pointer-events:none}
+.manifesto p em{color:#fff;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:8px}
+.manifesto-orbit{border-color:#ffffff15!important}
+.contact{background:#050505}
+.contact .button-primary{box-shadow:5px 5px 0 #ffffff24}
+footer{background:#050505;border-top:1px solid #ffffff2b}
+.back-top{background:#eee!important;color:#050505!important;border-color:#eee!important}
+.project-number{color:#777}
+.project h3,.skill-card h3,.step h3{font-family:'Archivo Black','Space Grotesk',sans-serif;letter-spacing:-.035em}
+.step-number{color:#999;border-color:#555}
+.step-marker{color:#ddd}
+.signature{border-color:#555}
+@media(hover:hover){.hero-art:hover .art-frame{transform:rotate(-1deg) translateY(-4px);transition:transform .35s}.gallery-main:hover img{transform:scale(1.035);transition:transform .5s}.project:hover .project-arrow{transform:translate(3px,-3px)}}
+.project-arrow{transition:transform .2s}
+@media(max-width:650px){.hero-grid{background-size:48px 48px}.sticker{right:-4px}.lab-shell:before{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-art{animation:none}}
