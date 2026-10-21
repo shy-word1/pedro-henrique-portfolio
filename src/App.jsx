@@ -1,114 +1,120 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 
 const artworks = [
   { title: "AFTER DARK", code: "ARCHIVE_001", image: "https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1400&q=90", note: "quiet minds / loud ideas" },
   { title: "NO SIGNAL", code: "ARCHIVE_002", image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1400&q=90", note: "somewhere in the static" },
-  { title: "VOID WALKER", code: "ARCHIVE_003", image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1400&q=90", note: "find your own frequency" },
+  { title: "VOID WALKER", code: "ARCHIVE_003", image: "https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=1400&q=90", note: "find your own frequency" }
 ];
 const projects = [
-  { n: "01", name: "AURA DASHBOARD", kind: "DASHBOARD / UI", desc: "Uma interface de painel com visual dark, organização clara e componentes reutilizáveis.", stack: ["React", "CSS", "UI Design"], status: "STUDY PROJECT", symbol: "◈" },
-  { n: "02", name: "AMONG US TERMO", kind: "BROWSER GAME", desc: "Um jogo de palavras com tentativas limitadas, feedback visual e foco em experiência mobile.", stack: ["JavaScript", "Game Logic", "Responsive"], status: "WEB EXPERIMENT", symbol: "⌁" },
-  { n: "03", name: "PH / WEB LAB", kind: "CREATIVE DEVELOPMENT", desc: "Experimentos com layouts, animações, microinterações e novas ideias para a web.", stack: ["HTML", "CSS", "React"], status: "ONGOING", symbol: "✳" },
+  { n:"01", name:"AURA DASHBOARD", kind:"INTERFACE", desc:"Dashboard dark com cards, navegação, indicadores e componentes reutilizáveis.", stack:["React","CSS","UI Design"], symbol:"◈", demo:"dashboard", status:"STUDY PROJECT" },
+  { n:"02", name:"AMONG US TERMO", kind:"GAME", desc:"Jogo de palavras com tentativas e feedback visual, inspirado nos jogos de adivinhação.", stack:["JavaScript","Game Logic","Mobile"], symbol:"⌁", demo:"word", status:"WEB GAME" },
+  { n:"03", name:"PH CALCULATOR", kind:"TOOL", desc:"Calculadora com operações básicas e interface inspirada em terminal.", stack:["JavaScript","Logic","CSS"], symbol:"＋", demo:"calculator", status:"LIVE DEMO" },
+  { n:"04", name:"TASK//ZERO", kind:"TOOL", desc:"Lista de tarefas com conclusão, remoção e salvamento local no navegador.", stack:["React","LocalStorage","CRUD"], symbol:"☷", demo:"todo", status:"LIVE DEMO" },
+  { n:"05", name:"KEYGEN_404", kind:"TOOL", desc:"Gera senhas aleatórias com controle de tamanho e tipos de caracteres.", stack:["JavaScript","Random","UI"], symbol:"⌘", demo:"password", status:"LIVE DEMO" },
+  { n:"06", name:"FOCUS MODE", kind:"TOOL", desc:"Pomodoro com contagem regressiva para estudar, programar e fazer pausas.", stack:["JavaScript","Timer","State"], symbol:"◷", demo:"timer", status:"LIVE DEMO" },
+  { n:"07", name:"QUIZ//LOADING", kind:"GAME", desc:"Quiz rápido de lógica, web e tecnologia com pontuação ao final.", stack:["JavaScript","Arrays","Events"], symbol:"?", demo:"quiz", status:"LIVE DEMO" },
+  { n:"08", name:"UNIT SHIFT", kind:"TOOL", desc:"Conversor de unidades para medidas comuns, direto e sem enrolação.", stack:["JavaScript","Math","UI"], symbol:"⇄", demo:"converter", status:"LIVE DEMO" },
+  { n:"09", name:"COLOR//VOID", kind:"EXPERIMENT", desc:"Gera paletas de cores para testar combinações de interfaces e temas.", stack:["JavaScript","Color","Design"], symbol:"◉", demo:"palette", status:"LIVE DEMO" },
+  { n:"10", name:"RANDOM SIGNAL", kind:"EXPERIMENT", desc:"Gerador de frases curtas para uma pausa entre linhas de código.", stack:["JavaScript","Random","DOM"], symbol:"〰", demo:"quote", status:"LIVE DEMO" },
+  { n:"11", name:"SKATE LOG", kind:"PERSONAL", desc:"Mini diário para anotar manobras que estou treinando e marcar o progresso.", stack:["React","LocalStorage","Forms"], symbol:"↗", demo:"skate", status:"PERSONAL PROJECT" },
+  { n:"12", name:"ANIME WATCHLIST", kind:"PERSONAL", desc:"Lista pessoal para guardar animes e marcar o que já foi assistido.", stack:["JavaScript","LocalStorage","CRUD"], symbol:"▣", demo:"anime", status:"PERSONAL PROJECT" }
 ];
 const skills = [
-  { name: "HTML", level: "01", desc: "Estrutura e semântica" },
-  { name: "CSS", level: "02", desc: "Layout, responsividade e motion" },
-  { name: "JAVASCRIPT", level: "03", desc: "Lógica e interatividade" },
-  { name: "REACT", level: "04", desc: "Componentes e interfaces" },
-  { name: "GIT / GITHUB", level: "05", desc: "Versionamento e colaboração" },
-  { name: "UI THINKING", level: "06", desc: "Detalhes que fazem diferença" },
+  {name:"HTML",level:"01",desc:"Estrutura e semântica"},{name:"CSS",level:"02",desc:"Layout, responsividade e motion"},{name:"JAVASCRIPT",level:"03",desc:"Lógica e interatividade"},{name:"REACT",level:"04",desc:"Componentes e interfaces"},{name:"GIT / GITHUB",level:"05",desc:"Versionamento e colaboração"},{name:"UI THINKING",level:"06",desc:"Detalhes que fazem diferença"}
 ];
-const steps = [
-  ["01", "OBSERVAR", "Entender o problema, a ideia e quem vai usar."],
-  ["02", "RASCUNHAR", "Organizar a estrutura e definir a direção visual."],
-  ["03", "CONSTRUIR", "Transformar o plano em código, uma parte por vez."],
-  ["04", "POLIR", "Testar, ajustar e cuidar dos detalhes."],
+const steps = [["01","OBSERVAR","Entender o problema, a ideia e quem vai usar."],["02","RASCUNHAR","Organizar a estrutura e definir a direção visual."],["03","CONSTRUIR","Transformar o plano em código, uma parte por vez."],["04","POLIR","Testar, ajustar e cuidar dos detalhes."]];
+const quotes = ["Continua construindo, mesmo quando ninguém está vendo.","Uma linha de cada vez também é progresso.","Faz funcionar. Depois deixa absurdo de bonito.","O próximo nível começa quando tu tenta de novo.","Menos desculpa, mais commit."];
+const quizQuestions = [
+ {q:"Qual linguagem dá comportamento a uma página web?",a:["HTML","JavaScript","CSS"],correct:1},
+ {q:"Para que serve o Git?",a:["Editar imagens","Versionar código","Hospedar jogos"],correct:1},
+ {q:"No React, o que é um componente?",a:["Uma parte reutilizável da interface","Um banco de dados","Um navegador"],correct:0}
 ];
+function readList(key){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch{return []}}
+
+function Lab({active}) {
+ const [expression,setExpression]=useState("");
+ const [tasks,setTasks]=useState(()=>readList("ph_tasks"));
+ const [taskInput,setTaskInput]=useState("");
+ const [passwordLength,setPasswordLength]=useState(16);
+ const [password,setPassword]=useState("");
+ const [minutes,setMinutes]=useState(25);
+ const [secondsLeft,setSecondsLeft]=useState(1500);
+ const [timerRunning,setTimerRunning]=useState(false);
+ const [quizIndex,setQuizIndex]=useState(0);
+ const [quizScore,setQuizScore]=useState(0);
+ const [quizDone,setQuizDone]=useState(false);
+ const [unitValue,setUnitValue]=useState("1");
+ const [unit,setUnit]=useState("km");
+ const [palette,setPalette]=useState(["#ff334e","#111111","#ededed","#5c5c5c","#9b1830"]);
+ const [quote,setQuote]=useState(quotes[0]);
+ const [skate,setSkate]=useState(()=>readList("ph_skate"));
+ const [skateInput,setSkateInput]=useState("");
+ const [anime,setAnime]=useState(()=>readList("ph_anime"));
+ const [animeInput,setAnimeInput]=useState("");
+ const [dashboardCount,setDashboardCount]=useState(4);
+ const [wordGuess,setWordGuess]=useState("");
+ const [wordFeedback,setWordFeedback]=useState("");
+ useEffect(()=>{localStorage.setItem("ph_tasks",JSON.stringify(tasks))},[tasks]);
+ useEffect(()=>{localStorage.setItem("ph_skate",JSON.stringify(skate))},[skate]);
+ useEffect(()=>{localStorage.setItem("ph_anime",JSON.stringify(anime))},[anime]);
+ useEffect(()=>{if(!timerRunning)return;const id=window.setInterval(()=>setSecondsLeft(s=>{if(s<=1){setTimerRunning(false);return 0}return s-1}),1000);return()=>window.clearInterval(id)},[timerRunning]);
+ useEffect(()=>{setWordFeedback("");setWordGuess("")},[active]);
+ const addItem=(e,input,setInput,list,setList,key)=>{e.preventDefault();if(!input.trim())return;setList(old=>[...old,{id:Date.now(),text:input.trim(),done:false}]);setInput("")};
+ const listUI=(list,setList,empty)=><div className="lab-list">{!list.length&&<p className="lab-empty">{empty}</p>}{list.map(item=><div className={item.done?"lab-list-item done":"lab-list-item"} key={item.id}><button className="lab-check" onClick={()=>setList(old=>old.map(x=>x.id===item.id?{...x,done:!x.done}:x))}>{item.done?"✓":"○"}</button><span>{item.text}</span><button className="lab-delete" onClick={()=>setList(old=>old.filter(x=>x.id!==item.id))}>×</button></div>)}</div>;
+ const genPassword=()=>{const chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%&*?";const bytes=new Uint32Array(passwordLength);window.crypto.getRandomValues(bytes);setPassword(Array.from(bytes,n=>chars[n%chars.length]).join(""))};
+ const answerQuiz=i=>{const score=quizScore+(i===quizQuestions[quizIndex].correct?1:0);setQuizScore(score);if(quizIndex===quizQuestions.length-1)setQuizDone(true);else setQuizIndex(quizIndex+1)};
+ const resetQuiz=()=>{setQuizIndex(0);setQuizScore(0);setQuizDone(false)};
+ if(active==="calculator") return <div className="lab-widget"><p className="lab-overline">CALCULATOR / BASIC MODE</p><div className="calc-display">{expression||"0"}</div><div className="calc-grid">{["7","8","9","÷","4","5","6","×","1","2","3","−","0",".","C","+","="].map(key=><button key={key} className={["÷","×","−","+","="].includes(key)?"calc-key accent":"calc-key"} onClick={()=>{if(key==="C")return setExpression("");if(key==="="){try{const safe=expression.replace(/×/g,"*").replace(/÷/g,"/").replace(/−/g,"-");if(!/^[0-9+*/.() -]+$/.test(safe)||!safe.trim())return;const result=Function('"use strict"; return ('+safe+')')();setExpression(Number.isFinite(result)?String(Number(result.toFixed(8))):"Erro")}catch{setExpression("Erro")}return}setExpression(v=>v+key)}}>{key}</button>)}</div></div>;
+ if(active==="todo") return <div className="lab-widget"><p className="lab-overline">TASK//ZERO / LOCAL STORAGE</p><form className="lab-form" onSubmit={e=>addItem(e,taskInput,setTaskInput,tasks,setTasks)}><input value={taskInput} onChange={e=>setTaskInput(e.target.value)} placeholder="Adicionar tarefa..." maxLength={90}/><button className="lab-button">ADICIONAR +</button></form>{listUI(tasks,setTasks,"Nenhuma tarefa ainda. Cria a primeira.")}<p className="lab-hint">{tasks.filter(x=>x.done).length}/{tasks.length} concluídas · salvas neste navegador</p></div>;
+ if(active==="password") return <div className="lab-widget"><p className="lab-overline">KEYGEN_404 / RANDOM STRING</p><label className="lab-label">TAMANHO: {passwordLength}<input type="range" min="8" max="32" value={passwordLength} onChange={e=>setPasswordLength(Number(e.target.value))}/></label><div className="password-output">{password||"••••••••••••••••"}</div><div className="lab-actions"><button className="lab-button" onClick={genPassword}>GERAR SENHA ↻</button><button className="lab-button ghost" onClick={()=>password&&navigator.clipboard?.writeText(password)}>COPIAR ↗</button></div><p className="lab-hint">Geração local no navegador. Não use senhas de demonstração em contas importantes.</p></div>;
+ if(active==="timer") return <div className="lab-widget timer-widget"><p className="lab-overline">FOCUS MODE / POMODORO</p><div className="timer-display">{String(Math.floor(secondsLeft/60)).padStart(2,"0")}:{String(secondsLeft%60).padStart(2,"0")}</div><div className="lab-actions"><button className="lab-button" onClick={()=>setTimerRunning(v=>!v)}>{timerRunning?"PAUSAR II":secondsLeft===0?"FINALIZADO ✓":"COMEÇAR ▶"}</button><button className="lab-button ghost" onClick={()=>{setTimerRunning(false);setSecondsLeft(minutes*60)}}>RESET ↻</button></div><div className="timer-presets">{[5,15,25,45].map(m=><button key={m} className={minutes===m?"preset active":"preset"} onClick={()=>{setMinutes(m);setSecondsLeft(m*60);setTimerRunning(false)}}>{m} MIN</button>)}</div></div>;
+ if(active==="quiz") return <div className="lab-widget"><p className="lab-overline">QUIZ//LOADING / {quizDone?"RESULT":"QUESTION "+(quizIndex+1)+" OF "+quizQuestions.length}</p>{quizDone?<><div className="quiz-result">{quizScore}/{quizQuestions.length}<span> pontos</span></div><p className="lab-hint">{quizScore===3?"BRABO. Tudo certo.":"Boa! Continua praticando e tenta de novo."}</p><button className="lab-button" onClick={resetQuiz}>JOGAR DE NOVO ↻</button></>:<><h3 className="quiz-question">{quizQuestions[quizIndex].q}</h3><div className="quiz-answers">{quizQuestions[quizIndex].a.map((a,i)=><button key={a} onClick={()=>answerQuiz(i)}>{String.fromCharCode(65+i)} / {a}</button>)}</div></>}</div>;
+ if(active==="converter"){const v=Number(unitValue)||0;const result=unit==="km"?(v*1000).toLocaleString("pt-BR")+" metros":unit==="kg"?(v*1000).toLocaleString("pt-BR")+" gramas":unit==="c"?((v*9/5)+32).toLocaleString("pt-BR")+" °F":(v*60).toLocaleString("pt-BR")+" segundos";return <div className="lab-widget"><p className="lab-overline">UNIT SHIFT / CONVERTER</p><label className="lab-label">VALOR<input type="number" value={unitValue} onChange={e=>setUnitValue(e.target.value)}/></label><div className="converter-options">{[["km","km → m"],["kg","kg → g"],["c","°C → °F"],["min","min → s"]].map(([v,l])=><button key={v} className={unit===v?"preset active":"preset"} onClick={()=>setUnit(v)}>{l}</button>)}</div><div className="converter-result">= {result}</div></div>}
+ if(active==="palette") return <div className="lab-widget"><p className="lab-overline">COLOR//VOID / PALETTE LAB</p><div className="palette-swatches">{palette.map(color=><button key={color} title={color} style={{background:color}} onClick={()=>navigator.clipboard?.writeText(color)}><span>{color}</span></button>)}</div><button className="lab-button" onClick={()=>setPalette(Array.from({length:5},()=>" #"+Math.floor(Math.random()*16777215).toString(16).padStart(6,"0")).map(c=>c.trim()) )}>RANDOMIZE PALETTE ↻</button><p className="lab-hint">Clica numa cor para copiar o hexadecimal.</p></div>;
+ if(active==="quote") return <div className="lab-widget"><p className="lab-overline">RANDOM SIGNAL / TRANSMISSION</p><blockquote className="random-quote">“{quote}”</blockquote><button className="lab-button" onClick={()=>setQuote(quotes[Math.floor(Math.random()*quotes.length)])}>NOVA TRANSMISSÃO ↻</button></div>;
+ if(active==="skate") return <div className="lab-widget"><p className="lab-overline">SKATE LOG / SESSION NOTES</p><form className="lab-form" onSubmit={e=>addItem(e,skateInput,setSkateInput,skate,setSkate)}><input value={skateInput} onChange={e=>setSkateInput(e.target.value)} placeholder="Ex.: ollie, shove-it..." maxLength={70}/><button className="lab-button">ADICIONAR +</button></form>{listUI(skate,setSkate,"Adiciona uma manobra que tu quer treinar.")}</div>;
+ if(active==="anime") return <div className="lab-widget"><p className="lab-overline">ANIME WATCHLIST / PERSONAL</p><form className="lab-form" onSubmit={e=>addItem(e,animeInput,setAnimeInput,anime,setAnime)}><input value={animeInput} onChange={e=>setAnimeInput(e.target.value)} placeholder="Nome do anime..." maxLength={70}/><button className="lab-button">ADICIONAR +</button></form>{listUI(anime,setAnime,"Monta tua lista de anime aqui.")}</div>;
+ if(active==="dashboard") return <div className="lab-widget"><p className="lab-overline">AURA DASHBOARD / LIVE COUNTER</p><div className="dashboard-mini"><div><small>PROJETOS NO LAB</small><strong>12</strong></div><div><small>FOCO ATUAL</small><strong>FRONT-END</strong></div><div><small>IDEIAS RASCUNHADAS</small><strong>{dashboardCount}</strong></div></div><div className="lab-actions"><button className="lab-button" onClick={()=>setDashboardCount(n=>n+1)}>NOVA IDEIA +</button><button className="lab-button ghost" onClick={()=>setDashboardCount(0)}>RESET</button></div></div>;
+ if(active==="word") return <div className="lab-widget"><p className="lab-overline">AMONG US TERMO / WORD GUESS</p><div className="word-target">S K A T E</div><p className="lab-hint">Palavra de 5 letras ligada a uma coisa que eu curto.</p><form className="lab-form" onSubmit={e=>{e.preventDefault();const guess=wordGuess.trim().toUpperCase();setWordFeedback(guess==="SKATE"?"ACERTOU! GG.":guess.length!==5?"DIGITA UMA PALAVRA COM 5 LETRAS.":"AINDA NÃO. TENTA DE NOVO.")}}><input value={wordGuess} onChange={e=>setWordGuess(e.target.value.slice(0,5))} placeholder="5 letras" maxLength={5}/><button className="lab-button">TENTAR ↗</button></form>{wordFeedback&&<p className="lab-hint">{wordFeedback}</p>}</div>;
+ return <div className="lab-widget"><p className="lab-overline">PH_WEB_LAB / SYSTEM ONLINE</p><div className="dashboard-mini"><div><small>BUILD</small><strong>IN PROGRESS</strong></div><div><small>MODE</small><strong>DARK</strong></div><div><small>IDEAS</small><strong>∞</strong></div></div></div>;
+}
+
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [artIndex, setArtIndex] = useState(0);
-  const [activeFilter, setActiveFilter] = useState("ALL");
-  const [time, setTime] = useState("");
-  const [scrolled, setScrolled] = useState(false);
-  const filters = ["ALL", "INTERFACE", "GAME", "EXPERIMENT"];
-  const visibleProjects = projects.filter((p) => activeFilter === "ALL" || (activeFilter === "INTERFACE" && p.kind.includes("UI")) || (activeFilter === "GAME" && p.kind.includes("GAME")) || (activeFilter === "EXPERIMENT" && p.kind.includes("CREATIVE")));
-  useEffect(() => {
-    const update = () => setScrolled(window.scrollY > 24);
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    const clock = () => setTime(new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date()));
-    clock();
-    const timer = window.setInterval(clock, 30000);
-    return () => { window.removeEventListener("scroll", update); window.clearInterval(timer); };
-  }, []);
-  const closeMenu = () => setMenuOpen(false);
-  return <main className="portfolio" id="top">
-    <div className="noise" aria-hidden="true" />
-    <header className={scrolled ? "topbar topbar-scrolled" : "topbar"}>
-      <a className="brand" href="#top" aria-label="Pedro Henrique, início"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a>
-      <div className="header-status"><i /> AVAILABLE TO BUILD <span>{time || "SC / BR"}</span></div>
-      <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen}>{menuOpen ? "CLOSE −" : "MENU +"}</button>
-      <nav className={menuOpen ? "nav nav-open" : "nav"}>
-        <a href="#about" onClick={closeMenu}>SOBRE</a><a href="#skills" onClick={closeMenu}>SKILLS</a><a href="#work" onClick={closeMenu}>PROJETOS</a><a href="#universe" onClick={closeMenu}>UNIVERSO</a><a className="nav-cta" href="#contact" onClick={closeMenu}>CONTATO ↗</a>
-      </nav>
-    </header>
-    <section className="hero" id="home">
-      <div className="hero-grid" aria-hidden="true" />
-      <div className="hero-copy">
-        <div className="eyebrow"><i /> DIGITAL PORTFOLIO <span>VOL. 001 / 2026</span></div>
-        <p className="kicker">ESTUDANTE DE DESENVOLVIMENTO DE SISTEMAS</p>
-        <h1><span className="hero-line">PEDRO</span><span className="hero-line outline">HENRIQUE<span className="hero-star">✳</span></span></h1>
-        <p className="hero-description">Eu transformo ideias em experiências digitais.<br/><span>Código limpo. Visual marcante. Curiosidade sem fim.</span></p>
-        <div className="hero-actions"><a className="button-primary" href="#work">EXPLORAR PROJETOS <span>↘</span></a><a className="text-link" href="#about">CONHECER O DEV <span>↗</span></a></div>
-        <div className="hero-meta"><span>SC / BRAZIL</span><span>FRONT-END IN PROGRESS</span><span>SCROLL TO EXPLORE ↓</span></div>
-      </div>
-      <div className="hero-art">
-        <div className="art-frame"><img src={artworks[artIndex].image} alt={artworks[artIndex].title + " — arte de referência escura"} /><div className="art-overlay" /><span className="art-top">{artworks[artIndex].code} / PERSONAL ARCHIVE</span><span className="art-center">PH<span>®</span></span><span className="art-bottom">{artworks[artIndex].note}</span><span className="scanline" /></div>
-        <div className="sticker">STAY<br/>STRANGE <b>✳</b></div><div className="art-index"><span>SELECT VISUAL</span>{artworks.map((art, i) => <button key={art.code} className={i === artIndex ? "art-dot active" : "art-dot"} onClick={() => setArtIndex(i)} aria-label={"Mostrar arte " + (i + 1)}>{String(i + 1).padStart(2, "0")}</button>)}</div>
-        <span className="vertical">DESIGN IS A POINT OF VIEW / 2026</span>
-      </div>
-      <span className="hero-scroll" aria-hidden="true">↓</span>
-    </section>
-    <div className="ticker"><div>CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b> ALWAYS LEARNING <b>✳</b> BUILT DIFFERENT <b>✳</b> CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b></div></div>
-    <section className="intro section" id="about">
-      <div className="section-top"><span className="section-no">01 / THE PERSON</span><span className="section-side">BEHIND THE PIXELS</span></div>
-      <div className="intro-grid"><h2>MAIS QUE<br/><em>UMA TELA.</em></h2><div className="intro-copy"><p className="lead">Sou o Pedro — estudante de Desenvolvimento de Sistemas, curioso por tecnologia e apaixonado por criar coisas com identidade.</p><p className="muted">Tô construindo meu caminho na programação na prática: testando ideias, errando, aprendendo e melhorando cada projeto. Gosto de interfaces com personalidade, detalhes bem pensados e aquela estética dark que mistura internet antiga com o futuro.</p><div className="signature">PEDRO HENRIQUE <span>↗</span></div></div></div>
-      <div className="facts"><div><small>01 / FOCO</small><strong>FRONT-END</strong><span>Interfaces e experiências web</span></div><div><small>02 / MINDSET</small><strong>ALWAYS LEARNING</strong><span>Aprender fazendo</span></div><div><small>03 / BASE</small><strong>SANTA CATARINA</strong><span>Brasil · UTC−3</span></div><div><small>04 / CURRENT MODE</small><strong>BUILDING</strong><span>Um projeto por vez</span></div></div>
-    </section>
-    <section className="skills section" id="skills">
-      <div className="section-top"><span className="section-no">02 / TOOLKIT</span><span className="section-side">TOOLS I USE TO CREATE</span></div>
-      <div className="skills-heading"><h2>APRENDENDO.<br/><em>CONSTRUINDO.</em></h2><p>Minha caixa de ferramentas está sempre evoluindo. Essas são as tecnologias e habilidades que fazem parte da minha jornada.</p></div>
-      <div className="skill-grid">{skills.map((skill) => <article className="skill-card" key={skill.name}><div className="skill-card-top"><span>{skill.level}</span><span className="skill-symbol">↗</span></div><h3>{skill.name}</h3><p>{skill.desc}</p><div className="skill-line"><span /></div></article>)}</div>
-      <div className="learning-note"><span className="pulse-dot" /> <p><strong>STATUS: EM EVOLUÇÃO</strong><br/>Não preciso saber tudo hoje. Preciso continuar aprendendo amanhã.</p><span className="note-symbol">∞</span></div>
-    </section>
-    <section className="work section" id="work">
-      <div className="section-top"><span className="section-no">03 / SELECTED WORK</span><span className="section-side">MADE WITH CURIOSITY</span></div>
-      <div className="work-heading"><h2>IDEIAS VIRANDO<br/><em>COISAS REAIS.</em></h2><p>Projetos de estudo e experiências que mostram o que estou aprendendo na prática.</p></div>
-      <div className="filter-row"><span>FILTER BY TYPE</span><div>{filters.map((filter) => <button key={filter} onClick={() => setActiveFilter(filter)} className={activeFilter === filter ? "filter active" : "filter"}>{filter}</button>)}</div></div>
-      <div className="projects">{visibleProjects.map((project) => <article className="project" key={project.n}><div className="project-number">{project.n}</div><div className="project-symbol">{project.symbol}</div><div className="project-content"><div className="project-meta"><span>{project.kind}</span><span>{project.status}</span></div><h3>{project.name}</h3><p>{project.desc}</p><div className="tags">{project.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><span className="project-arrow">↗</span></article>)}</div>
-      <p className="project-disclaimer">PROJETOS DE ESTUDO / DESCRIÇÕES ILUSTRATIVAS — LINKS SERÃO ADICIONADOS QUANDO DISPONÍVEIS.</p>
-    </section>
-    <section className="process section">
-      <div className="section-top"><span className="section-no">04 / HOW I WORK</span><span className="section-side">SMALL STEPS. REAL PROGRESS.</span></div>
-      <div className="process-heading"><h2>DO ZERO<br/><em>AO DETALHE.</em></h2><p>Não é só fazer funcionar. É pensar em como cada parte se conecta e como a pessoa vai sentir usando aquilo.</p></div>
-      <div className="steps">{steps.map(([n, title, desc]) => <article className="step" key={n}><span className="step-number">{n}</span><div className="step-marker">✳</div><h3>{title}</h3><p>{desc}</p></article>)}</div>
-    </section>
-    <section className="universe section" id="universe">
-      <div className="section-top"><span className="section-no">05 / PERSONAL ARCHIVE</span><span className="section-side">THINGS THAT SHAPE MY TASTE</span></div>
-      <h2>MEU MUNDO.<br/><em>MINHAS REFERÊNCIAS.</em></h2>
-      <p className="universe-intro">Um pouco das referências que inspiram meu olhar — do visual que curto até as coisas que me tiram da frente do computador.</p>
-      <div className="gallery"><button className="gallery-main" onClick={() => setArtIndex((artIndex + 1) % artworks.length)}><img src={artworks[artIndex].image} alt={artworks[artIndex].title + " — referência visual"}/><span className="gallery-label">PERSONAL ARCHIVE / CLICK TO CHANGE ↗</span><span className="gallery-caption">{artworks[artIndex].title}<small>{artworks[artIndex].code}</small></span></button><div className="gallery-side"><article><span>01 / ANIME & MANGA</span><h3>CONTRASTE.<br/>PERSONALIDADE.</h3><p>Personagens, sombras, painéis em preto e branco e histórias que ficam na cabeça.</p></article><article><span>02 / Y2K & INTERNET CULTURE</span><h3>GLITCH, NOISE<br/>& DIGITAL CHAOS.</h3><p>Interfaces experimentais, texturas, tipografia forte e aquele futuro imaginado no passado.</p></article><article><span>03 / SKATE & STREETWEAR</span><h3>RUA, MOVIMENTO<br/>& IDENTIDADE.</h3><p>Estilo pessoal, tênis, skate e referências que não precisam seguir um padrão.</p></article><blockquote>“A identidade está nos detalhes.”<small>— PH / PERSONAL NOTE</small></blockquote></div></div>
-    </section>
-    <section className="manifesto"><span className="manifesto-label">A NOTE TO MY FUTURE SELF</span><p>“Não precisa estar perfeito.<br/>Precisa estar <em>em movimento.</em>”</p><div><span>KEEP BUILDING.</span><span>KEEP BECOMING. ↗</span></div><div className="manifesto-orbit orbit-one" /><div className="manifesto-orbit orbit-two" /></section>
-    <section className="contact section" id="contact">
-      <div className="section-top"><span className="section-no">06 / CONTACT</span><span className="section-side">THE NEXT THING STARTS HERE</span></div>
-      <p className="kicker">TEM UMA IDEIA? PRECISA DE UM SITE?</p><h2>VAMOS FAZER<br/><em>ACONTECER.</em></h2><p className="contact-description">Aberto a oportunidades, projetos freelance e ideias que valem a pena tirar do papel. Se tu curtiu o que viu, bora conversar.</p>
-      <div className="contact-actions"><a className="button-primary" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">ME CHAMA NO GITHUB <span>↗</span></a><a className="text-link" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">GITHUB <span>↗</span></a></div>
-      <div className="contact-meta"><span>PORTFÓLIO DE PEDRO HENRIQUE</span><span>DESIGN / CODE / CURIOSITY</span><span>SC, BR — {time || "UTC−3"}</span></div>
-    </section>
-    <footer><a className="brand" href="#top"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a><span>FEITO COM CURIOSIDADE © 2026</span><a href="#top">VOLTAR AO TOPO ↑</a></footer>
-    <a className="back-top" href="#top" aria-label="Voltar ao topo">↑</a>
-  </main>;
+ const [menuOpen,setMenuOpen]=useState(false);
+ const [artIndex,setArtIndex]=useState(0);
+ const [activeFilter,setActiveFilter]=useState("ALL");
+ const [time,setTime]=useState("");
+ const [scrolled,setScrolled]=useState(false);
+ const [search,setSearch]=useState("");
+ const [activeLab,setActiveLab]=useState("calculator");
+ const [showAll,setShowAll]=useState(false);
+ const filters=["ALL","INTERFACE","GAME","TOOL","EXPERIMENT","PERSONAL"];
+ const filteredProjects=useMemo(()=>projects.filter(p=>(activeFilter==="ALL"||p.kind===activeFilter)&&(p.name+p.desc+p.stack.join(" ")).toLowerCase().includes(search.toLowerCase())),[activeFilter,search]);
+ const visibleProjects=showAll?filteredProjects:filteredProjects.slice(0,6);
+ useEffect(()=>{
+  const update=()=>setScrolled(window.scrollY>24);update();window.addEventListener("scroll",update,{passive:true});
+  const clock=()=>setTime(new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit",timeZone:"America/Sao_Paulo"}).format(new Date()));clock();const timer=window.setInterval(clock,30000);
+  const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("revealed");observer.unobserve(entry.target)}}),{threshold:.12});
+  document.querySelectorAll(".section,.manifesto").forEach(el=>{el.classList.add("reveal");observer.observe(el)});
+  return()=>{window.removeEventListener("scroll",update);window.clearInterval(timer);observer.disconnect()};
+ },[]);
+ const closeMenu=()=>setMenuOpen(false);
+ const openDemo=project=>{setActiveLab(project.demo);document.getElementById("lab")?.scrollIntoView({behavior:"smooth"})};
+ return <main className="portfolio" id="top">
+  <div className="noise" aria-hidden="true"/>
+  <header className={scrolled?"topbar topbar-scrolled":"topbar"}><a className="brand" href="#top" aria-label="Pedro Henrique, início"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a><div className="header-status"><i/> AVAILABLE TO BUILD <span>{time||"SC / BR"}</span></div><button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen}>{menuOpen?"CLOSE −":"MENU +"}</button><nav className={menuOpen?"nav nav-open":"nav"}><a href="#about" onClick={closeMenu}>SOBRE</a><a href="#skills" onClick={closeMenu}>SKILLS</a><a href="#work" onClick={closeMenu}>PROJETOS</a><a href="#lab" onClick={closeMenu}>LAB</a><a href="#universe" onClick={closeMenu}>UNIVERSO</a><a className="nav-cta" href="#contact" onClick={closeMenu}>CONTATO ↗</a></nav></header>
+  <section className="hero" id="home"><div className="hero-grid" aria-hidden="true"/><div className="hero-copy"><div className="eyebrow"><i/> DIGITAL PORTFOLIO <span>VOL. 002 / 2026</span></div><p className="kicker">ESTUDANTE DE DESENVOLVIMENTO DE SISTEMAS</p><h1><span className="hero-line">PEDRO</span><span className="hero-line outline">HENRIQUE<span className="hero-star">✳</span></span></h1><p className="hero-description">Eu transformo ideias em experiências digitais.<br/><span>Código limpo. Visual marcante. Curiosidade sem fim.</span></p><div className="hero-actions"><a className="button-primary" href="#work">EXPLORAR PROJETOS <span>↘</span></a><a className="text-link" href="#about">CONHECER O DEV <span>↗</span></a></div><div className="hero-meta"><span>SC / BRAZIL</span><span>FRONT-END IN PROGRESS</span><span>SCROLL TO EXPLORE ↓</span></div></div><div className="hero-art"><div className="art-frame"><img src={artworks[artIndex].image} alt={artworks[artIndex].title+" — arte de referência escura"}/><div className="art-overlay"/><span className="art-top">{artworks[artIndex].code} / PERSONAL ARCHIVE</span><span className="art-center">PH<span>®</span></span><span className="art-bottom">{artworks[artIndex].note}</span><span className="scanline"/></div><div className="sticker">STAY<br/>STRANGE <b>✳</b></div><div className="art-index"><span>SELECT VISUAL</span>{artworks.map((art,i)=><button key={art.code} className={i===artIndex?"art-dot active":"art-dot"} onClick={()=>setArtIndex(i)} aria-label={"Mostrar arte "+(i+1)}>{String(i+1).padStart(2,"0")}</button>)}</div><span className="vertical">DESIGN IS A POINT OF VIEW / 2026</span></div><span className="hero-scroll" aria-hidden="true">↓</span></section>
+  <div className="ticker"><div>CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b> ALWAYS LEARNING <b>✳</b> SKATE / ANIME / TECH <b>✳</b> CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b></div></div>
+  <section className="intro section" id="about"><div className="section-top"><span className="section-no">01 / THE PERSON</span><span className="section-side">BEHIND THE PIXELS</span></div><div className="intro-grid"><h2>MAIS QUE<br/><em>UMA TELA.</em></h2><div className="intro-copy"><p className="lead">Sou o Pedro — estudante de Desenvolvimento de Sistemas no SENAI, curioso por tecnologia e apaixonado por criar coisas com identidade.</p><p className="muted">Tô construindo meu caminho na programação na prática: testando ideias, errando, aprendendo e melhorando cada projeto. Curto anime e mangá, jogos, skate, tênis e cultura digital. Quero transformar essa mistura em experiências web com personalidade — sem deixar de aprender a base e fazer as coisas funcionarem de verdade.</p><div className="signature">PEDRO HENRIQUE <span>↗</span></div></div></div><div className="facts"><div><small>01 / FOCO</small><strong>FRONT-END</strong><span>Interfaces e experiências web</span></div><div><small>02 / STUDY MODE</small><strong>SENAI / SYSTEMS</strong><span>Lógica, web e projetos</span></div><div><small>03 / OFFLINE MODE</small><strong>SKATE & STREETWEAR</strong><span>Prática, estilo e movimento</span></div><div><small>04 / INSPIRATION</small><strong>ANIME / GAMES</strong><span>Narrativas, estética e tecnologia</span></div></div></section>
+  <section className="skills section" id="skills"><div className="section-top"><span className="section-no">02 / TOOLKIT</span><span className="section-side">TOOLS I USE TO CREATE</span></div><div className="skills-heading"><h2>APRENDENDO.<br/><em>CONSTRUINDO.</em></h2><p>Minha caixa de ferramentas está sempre evoluindo. Essas são as tecnologias e habilidades que fazem parte da minha jornada.</p></div><div className="skill-grid">{skills.map(skill=><article className="skill-card" key={skill.name}><div className="skill-card-top"><span>{skill.level}</span><span className="skill-symbol">↗</span></div><h3>{skill.name}</h3><p>{skill.desc}</p><div className="skill-line"><span/></div></article>)}</div><div className="learning-note"><span className="pulse-dot"/><p><strong>STATUS: EM EVOLUÇÃO</strong><br/>Não preciso saber tudo hoje. Preciso continuar aprendendo amanhã.</p><span className="note-symbol">∞</span></div></section>
+  <section className="work section" id="work"><div className="section-top"><span className="section-no">03 / PROJECT ARCHIVE</span><span className="section-side">SMALL BUILDS / REAL PRACTICE</span></div><div className="work-heading"><h2>IDEIAS VIRANDO<br/><em>COISAS REAIS.</em></h2><p>Projetos de estudo e experiências. Abre uma demo no laboratório e testa algumas das ideias.</p></div><div className="project-tools"><label className="project-search"><span>⌕</span><input value={search} onChange={e=>{setSearch(e.target.value);setShowAll(true)}} placeholder="BUSCAR PROJETO..." aria-label="Buscar projeto"/></label><div className="filter-row"><span>FILTER BY TYPE</span><div>{filters.map(filter=><button key={filter} onClick={()=>{setActiveFilter(filter);setShowAll(false)}} className={activeFilter===filter?"filter active":"filter"}>{filter}</button>)}</div></div></div><div className="projects">{visibleProjects.map(project=><article className="project" key={project.n}><div className="project-number">{project.n}</div><div className="project-symbol">{project.symbol}</div><div className="project-content"><div className="project-meta"><span>{project.kind}</span><span>{project.status}</span></div><h3>{project.name}</h3><p>{project.desc}</p><div className="tags">{project.stack.map(tag=><span key={tag}>{tag}</span>)}</div><button className="project-demo" onClick={()=>openDemo(project)}>ABRIR DEMO NO LAB ↗</button></div><span className="project-arrow">↗</span></article>)}</div>{filteredProjects.length>6&&<button className="show-more" onClick={()=>setShowAll(v=>!v)}>{showAll?"MOSTRAR MENOS −":"VER TODOS OS PROJETOS + ("+filteredProjects.length+")"}</button>}{filteredProjects.length===0&&<p className="lab-hint">Nenhum projeto encontrado. Tenta outra busca.</p>}<p className="project-disclaimer">ARQUIVO DE ESTUDOS · DEMOS FUNCIONAIS RODAM NESTA PÁGINA · PROJETOS PUBLICADOS DEVEM RECEBER LINKS REAIS.</p></section>
+  <section className="lab-section section" id="lab"><div className="section-top"><span className="section-no">04 / INTERACTIVE LAB</span><span className="section-side">TOCA AÍ. TUDO É TESTÁVEL.</span></div><div className="lab-heading"><div><h2>PLAY WITH<br/><em>THE CODE.</em></h2><p>Mini projetos em JavaScript para experimentar sem sair do portfólio. Escolhe uma ferramenta e brinca.</p></div><span className="lab-live"><i/> SYSTEM ONLINE</span></div><div className="lab-shell"><aside className="lab-menu"><div className="lab-menu-title">/ APPS DIRECTORY</div>{[{id:"calculator",name:"PH_CALCULATOR",n:"01"},{id:"todo",name:"TASK//ZERO",n:"02"},{id:"password",name:"KEYGEN_404",n:"03"},{id:"timer",name:"FOCUS_MODE",n:"04"},{id:"quiz",name:"QUIZ//LOADING",n:"05"},{id:"converter",name:"UNIT_SHIFT",n:"06"},{id:"palette",name:"COLOR//VOID",n:"07"},{id:"quote",name:"RANDOM_SIGNAL",n:"08"},{id:"skate",name:"SKATE_LOG",n:"09"},{id:"anime",name:"ANIME_LIST",n:"10"},{id:"dashboard",name:"AURA_PANEL",n:"11"},{id:"word",name:"WORD_GAME",n:"12"}].map(item=><button key={item.id} className={activeLab===item.id?"lab-menu-item active":"lab-menu-item"} onClick={()=>setActiveLab(item.id)}><span>{item.n}</span>{item.name}<b>↗</b></button>)}</aside><div className="lab-main"><div className="lab-windowbar"><span><i/><i/><i/></span><span>PH_WEB_LAB.exe</span><span>LIVE DEMO</span></div><Lab active={activeLab}/></div></div><p className="lab-footnote">Tarefas, skate log e anime watchlist usam armazenamento local deste navegador. Os dados não são enviados para um servidor.</p></section>
+  <section className="process section"><div className="section-top"><span className="section-no">05 / HOW I WORK</span><span className="section-side">SMALL STEPS. REAL PROGRESS.</span></div><div className="process-heading"><h2>DO ZERO<br/><em>AO DETALHE.</em></h2><p>Não é só fazer funcionar. É pensar em como cada parte se conecta e como a pessoa vai sentir usando aquilo.</p></div><div className="steps">{steps.map(([n,title,desc])=><article className="step" key={n}><span className="step-number">{n}</span><div className="step-marker">✳</div><h3>{title}</h3><p>{desc}</p></article>)}</div></section>
+  <section className="universe section" id="universe"><div className="section-top"><span className="section-no">06 / PERSONAL ARCHIVE</span><span className="section-side">THINGS THAT SHAPE MY TASTE</span></div><h2>MEU MUNDO.<br/><em>MINHAS REFERÊNCIAS.</em></h2><p className="universe-intro">Um pouco do que faz parte de mim — programação, anime, games, skate e cultura digital. As imagens atuais são referências temporárias; depois dá pra trocar pelas tuas fotos.</p><div className="gallery"><button className="gallery-main" onClick={()=>setArtIndex((artIndex+1)%artworks.length)}><img src={artworks[artIndex].image} alt={artworks[artIndex].title+" — referência visual"}/><span className="gallery-label">PERSONAL ARCHIVE / CLICK TO CHANGE ↗</span><span className="gallery-caption">{artworks[artIndex].title}<small>{artworks[artIndex].code}</small></span></button><div className="gallery-side"><article><span>01 / ANIME & MANGA</span><h3>CONTRASTE.<br/>PERSONALIDADE.</h3><p>Naruto, personagens intensos, sombras, painéis em preto e branco e histórias que ficam na cabeça.</p></article><article><span>02 / GAMES & TECH</span><h3>JOGAR.<br/>CRIAR. REPETIR.</h3><p>Games, interfaces, experiências digitais e curiosidade pra entender como as coisas funcionam por trás da tela.</p></article><article><span>03 / SKATE & SNEAKERS</span><h3>RUA, MOVIMENTO<br/>& IDENTIDADE.</h3><p>Skate, tênis e streetwear como parte da cultura visual que curto — sempre do meu jeito.</p></article><blockquote>“A identidade está nos detalhes.”<small>— PH / PERSONAL NOTE</small></blockquote></div></div><div className="interest-strip"><span>01 / CODE</span><span>02 / ANIME</span><span>03 / SKATE</span><span>04 / GAMES</span><span>05 / SNEAKERS</span><span>06 / DIGITAL CULTURE</span></div></section>
+  <section className="manifesto"><span className="manifesto-label">A NOTE TO MY FUTURE SELF</span><p>“Não precisa estar perfeito.<br/>Precisa estar <em>em movimento.</em>”</p><div><span>KEEP BUILDING.</span><span>KEEP BECOMING. ↗</span></div><div className="manifesto-orbit orbit-one"/><div className="manifesto-orbit orbit-two"/></section>
+  <section className="contact section" id="contact"><div className="section-top"><span className="section-no">07 / CONTACT</span><span className="section-side">THE NEXT THING STARTS HERE</span></div><p className="kicker">TEM UMA IDEIA? PRECISA DE UM SITE?</p><h2>VAMOS FAZER<br/><em>ACONTECER.</em></h2><p className="contact-description">Aberto a oportunidades de aprendizagem, projetos freelance e ideias que valem a pena tirar do papel. Se tu curtiu o que viu, bora conversar.</p><div className="contact-actions"><a className="button-primary" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">MEU GITHUB <span>↗</span></a><a className="text-link" href="https://github.com/shy-word1/pedro-henrique-portfolio" target="_blank" rel="noreferrer">REPOSITÓRIO <span>↗</span></a></div><div className="contact-meta"><span>PORTFÓLIO DE PEDRO HENRIQUE</span><span>DESIGN / CODE / CURIOSITY</span><span>SC, BR — {time||"UTC−3"}</span></div></section>
+  <footer><a className="brand" href="#top"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a><span>FEITO COM CURIOSIDADE © 2026</span><a href="#top">VOLTAR AO TOPO ↑</a></footer><a className="back-top" href="#top" aria-label="Voltar ao topo">↑</a>
+ </main>;
 }
 export default App;
