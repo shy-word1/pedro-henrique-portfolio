@@ -555,7 +555,7 @@ img{max-width:100%}
 
 /* Final polish: clearer hierarchy, consistent controls and calmer motion */
 :root{--red:#ff3b52;--line:rgba(255,255,255,.12);--muted:#929292}
-::focus-visible{outline:2px solid var(--red);outline-offset:4px}
+:focus-visible{outline:2px solid var(--red);outline-offset:4px}
 button,a,input{ -webkit-tap-highlight-color:transparent }
 button{cursor:pointer}
 section[id]{scroll-margin-top:88px}
