@@ -86,6 +86,7 @@ function App() {
  const [activeFilter,setActiveFilter]=useState("ALL");
  const [time,setTime]=useState("");
  const [scrolled,setScrolled]=useState(false);
+ const [scrollProgress,setScrollProgress]=useState(0);
  const [search,setSearch]=useState("");
  const [activeLab,setActiveLab]=useState("calculator");
  const [showAll,setShowAll]=useState(false);
@@ -93,7 +94,7 @@ function App() {
  const filteredProjects=useMemo(()=>projects.filter(p=>(activeFilter==="ALL"||p.kind===activeFilter)&&(p.name+p.desc+p.stack.join(" ")).toLowerCase().includes(search.toLowerCase())),[activeFilter,search]);
  const visibleProjects=showAll?filteredProjects:filteredProjects.slice(0,6);
  useEffect(()=>{
-  const update=()=>setScrolled(window.scrollY>24);update();window.addEventListener("scroll",update,{passive:true});
+  const update=()=>{setScrolled(window.scrollY>24);const max=document.documentElement.scrollHeight-window.innerHeight;setScrollProgress(max>0?Math.min(100,Math.round(window.scrollY/max*100)):0)};update();window.addEventListener("scroll",update,{passive:true});
   const clock=()=>setTime(new Intl.DateTimeFormat("pt-BR",{hour:"2-digit",minute:"2-digit",timeZone:"America/Sao_Paulo"}).format(new Date()));clock();const timer=window.setInterval(clock,30000);
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("revealed");observer.unobserve(entry.target)}}),{threshold:.12});
   document.querySelectorAll(".section,.manifesto").forEach(el=>{el.classList.add("reveal");observer.observe(el)});
@@ -102,7 +103,7 @@ function App() {
  const closeMenu=()=>setMenuOpen(false);
  const openDemo=project=>{setActiveLab(project.demo);document.getElementById("lab")?.scrollIntoView({behavior:"smooth"})};
  return <main className="portfolio" id="top">
-  <div className="noise" aria-hidden="true"/>
+  <div className="noise" aria-hidden="true"/><div className="scroll-progress" aria-hidden="true"><span style={{transform:`scaleX(${scrollProgress/100})`}}/></div>
   <header className={scrolled?"topbar topbar-scrolled":"topbar"}><a className="brand" href="#top" aria-label="Pedro Henrique, início"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a><div className="header-status"><i/> AVAILABLE TO BUILD <span>{time||"SC / BR"}</span></div><button className="menu-toggle" onClick={()=>setMenuOpen(!menuOpen)} aria-expanded={menuOpen}>{menuOpen?"CLOSE −":"MENU +"}</button><nav className={menuOpen?"nav nav-open":"nav"}><a href="#about" onClick={closeMenu}>SOBRE</a><a href="#skills" onClick={closeMenu}>SKILLS</a><a href="#work" onClick={closeMenu}>PROJETOS</a><a href="#lab" onClick={closeMenu}>LAB</a><a href="#universe" onClick={closeMenu}>UNIVERSO</a><a className="nav-cta" href="#contact" onClick={closeMenu}>CONTATO ↗</a></nav></header>
   <section className="hero" id="home"><div className="hero-grid" aria-hidden="true"/><div className="hero-copy"><div className="eyebrow"><i/> DIGITAL PORTFOLIO <span>VOL. 002 / 2026</span></div><p className="kicker">ESTUDANTE DE DESENVOLVIMENTO DE SISTEMAS</p><h1><span className="hero-line">PEDRO</span><span className="hero-line outline">HENRIQUE<span className="hero-star">✳</span></span></h1><p className="hero-description">Tô aprendendo a transformar minhas ideias em sites de verdade.<br/><span>Um pouco de código, um pouco de caos e muita tentativa.</span></p><div className="hero-actions"><a className="button-primary" href="#work">EXPLORAR PROJETOS <span>↘</span></a><a className="text-link" href="#about">CONHECER O DEV <span>↗</span></a></div><div className="hero-meta"><span>SC / BRAZIL</span><span>FRONT-END IN PROGRESS</span><span>SCROLL TO EXPLORE ↓</span></div></div><div className="hero-art"><div className="art-frame"><img src={artworks[artIndex].image} alt={artworks[artIndex].title+" — arte de referência escura"}/><div className="art-overlay"/><span className="art-top">{artworks[artIndex].code} / PERSONAL ARCHIVE</span><span className="art-center">PH<span>®</span></span><span className="art-bottom">{artworks[artIndex].note}</span><span className="scanline"/></div><div className="sticker">STAY<br/>STRANGE <b>✳</b></div><div className="art-index"><span>SELECT VISUAL</span>{artworks.map((art,i)=><button key={art.code} className={i===artIndex?"art-dot active":"art-dot"} onClick={()=>setArtIndex(i)} aria-label={"Mostrar arte "+(i+1)}>{String(i+1).padStart(2,"0")}</button>)}</div><span className="vertical">DESIGN IS A POINT OF VIEW / 2026</span></div><span className="hero-scroll" aria-hidden="true">↓</span></section>
   <div className="ticker"><div>CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b> ALWAYS LEARNING <b>✳</b> SKATE / ANIME / TECH <b>✳</b> CREATIVE CODE <b>✳</b> DARK AESTHETIC <b>✳</b> FRONT-END DEV <b>✳</b></div></div>
