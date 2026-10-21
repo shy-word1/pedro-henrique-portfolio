@@ -104,7 +104,7 @@ function App() {
     <section className="contact section" id="contact">
       <div className="section-top"><span className="section-no">06 / CONTACT</span><span className="section-side">THE NEXT THING STARTS HERE</span></div>
       <p className="kicker">TEM UMA IDEIA? PRECISA DE UM SITE?</p><h2>VAMOS FAZER<br/><em>ACONTECER.</em></h2><p className="contact-description">Aberto a oportunidades, projetos freelance e ideias que valem a pena tirar do papel. Se tu curtiu o que viu, bora conversar.</p>
-      <div className="contact-actions"><a className="button-primary" href="mailto:pedrohenriquebars@gmail.com">ME CHAMA NO E-MAIL <span>↗</span></a><a className="text-link" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">GITHUB <span>↗</span></a></div>
+      <div className="contact-actions"><a className="button-primary" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">ME CHAMA NO GITHUB <span>↗</span></a><a className="text-link" href="https://github.com/shy-word1" target="_blank" rel="noreferrer">GITHUB <span>↗</span></a></div>
       <div className="contact-meta"><span>PORTFÓLIO DE PEDRO HENRIQUE</span><span>DESIGN / CODE / CURIOSITY</span><span>SC, BR — {time || "UTC−3"}</span></div>
     </section>
     <footer><a className="brand" href="#top"><span className="brand-mark">P<span>H</span></span><span>PH<span className="muted">_DEV</span></span></a><span>FEITO COM CURIOSIDADE © 2026</span><a href="#top">VOLTAR AO TOPO ↑</a></footer>
