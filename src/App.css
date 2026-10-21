@@ -291,3 +291,10 @@ footer>span,footer>a:last-child{font-size:8px;letter-spacing:1px}
 .art-center>span:first-child{color:var(--red)}
 .art-center .art-reg{font-size:13px;letter-spacing:0;vertical-align:top;margin-left:8px;color:#fff}
 @media(prefers-reduced-motion:reduce){.brand-mark{transition:none!important}}
+
+
+/* Larger, clearer shy' wordmark in the header */
+.brand{gap:15px!important}
+.brand-mark{font-size:34px!important;letter-spacing:-4px!important;padding-right:5px!important;transform:none!important}
+.brand>span:last-child{font-size:16px!important;letter-spacing:1.5px!important;font-weight:600}
+@media(max-width:650px){.brand{gap:12px!important}.brand-mark{font-size:30px!important}.brand>span:last-child{font-size:15px!important}}
