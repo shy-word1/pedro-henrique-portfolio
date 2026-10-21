@@ -280,3 +280,14 @@ footer>span,footer>a:last-child{font-size:8px;letter-spacing:1px}
 .scroll-progress{position:fixed;z-index:60;top:0;left:0;right:0;height:2px;pointer-events:none;background:transparent}
 .scroll-progress span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#777 0%,#f5f5f5 70%,#ff365d 100%);transform-origin:left center;box-shadow:0 0 12px #ffffff24;will-change:transform}
 @media(prefers-reduced-motion:reduce){.scroll-progress span{transition:none}}
+
+/* SHY' brand cleanup — remove the square grid from the hero background */
+.hero-grid{display:none!important;background-image:none!important;mask-image:none!important}
+.brand-mark{border:0!important;box-shadow:none!important;font-size:25px!important;font-weight:700;letter-spacing:-3px!important;width:auto!important;height:auto!important;display:inline-flex!important;align-items:center;justify-content:center;line-height:1;color:#f4f4f4;padding-right:3px}
+.brand-mark span{color:var(--red);font-size:1.12em}
+.brand:hover .brand-mark{transform:translateY(-2px)!important;box-shadow:none!important}
+.brand>span:last-child{font-size:12px;letter-spacing:1.2px}
+.art-center{font-size:clamp(58px,9vw,112px)!important;font-weight:700;letter-spacing:-.095em!important;text-transform:lowercase}
+.art-center>span:first-child{color:var(--red)}
+.art-center .art-reg{font-size:13px;letter-spacing:0;vertical-align:top;margin-left:8px;color:#fff}
+@media(prefers-reduced-motion:reduce){.brand-mark{transition:none!important}}
