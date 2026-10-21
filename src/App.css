@@ -405,3 +405,71 @@ footer .brand{flex-shrink:0}
 @media(max-width:760px){.anime-heading{grid-template-columns:1fr;gap:20px}.anime-heading>p{max-width:520px}.anime-grid{grid-template-columns:1fr}.anime-art{height:220px}.anime-card-copy>p{min-height:unset}.anime-note{align-items:flex-start;padding:19px;gap:15px}.anime-note-symbol{font-size:42px}}
 @media(max-width:430px){.brand-mark.gaara-mark{width:36px!important;height:36px!important;font-size:25px!important}.brand>span:last-child{font-size:11px!important}.anime-card-copy{padding:19px}.anime-card-meta{font-size:7px}.anime-art{height:190px}}
 @media(prefers-reduced-motion:reduce){.anime-card,.anime-art:before{transition:none}}
+
+
+/* SOUZA / ANIME GRAFFITI EDITION */
+:root{--red:#e13c50;--signal:#ff4e69;--sand:#d7b28b;--graffiti-ink:#0a0a0d}
+.brand-mark.gaara-mark{color:#e3b98d!important;border-color:#e13c5066!important;transform:rotate(-5deg)!important}
+.brand-mark.gaara-mark:after{content:"";position:absolute;width:48px;height:48px;border:1px dashed #e13c5044;border-radius:50%;pointer-events:none}
+.hero{isolation:isolate}
+.hero:before{content:"SOUZA";position:absolute;z-index:-1;right:2%;top:12%;font:italic 900 clamp(60px,13vw,190px)/.8 'Archivo Black',sans-serif;letter-spacing:-.09em;color:#ffffff04;transform:rotate(-9deg);pointer-events:none}
+.hero-copy:after{content:"愛  /  NEVER STOP";display:block;position:absolute;right:0;bottom:-26px;font:italic 700 12px 'DM Mono',monospace;letter-spacing:2px;color:#b51f3280;transform:rotate(-5deg);pointer-events:none}
+.hero-line:first-child{font-family:'Archivo Black','Space Grotesk',sans-serif}
+.hero-line.outline{font-family:'Archivo Black','Space Grotesk',sans-serif}
+.hero-star{color:#e13c50!important}
+.sticker{font:900 15px/1 'Archivo Black',sans-serif!important;letter-spacing:-.04em;transform:rotate(8deg)!important;outline:1px dashed #f5d9b2;outline-offset:4px}
+.sticker:after{content:"// SOUZA";display:block;margin-top:9px;font:8px var(--mono);letter-spacing:1px}
+.art-frame:before{border:1px dashed #e5c6a366!important}
+.art-frame .art-top{background:#090909b8;padding:7px 9px;border-left:2px solid #e13c50}
+.art-bottom{background:#090909b8;padding:7px 9px}
+.ticker{background:#13090c!important}
+.ticker>div{font-weight:600;letter-spacing:2.5px}
+.ticker b{color:#e6bd93!important}
+.anime-section,.quote-wall{position:relative}
+.anime-section:before,.quote-wall:before{content:"";position:absolute;top:35px;right:6%;width:100px;height:100px;border:1px solid #e13c5026;border-radius:50%;box-shadow:0 0 0 12px #e13c5006,0 0 0 25px #e13c5004;pointer-events:none}
+.anime-art{border-bottom:1px solid #e13c5030}
+.anime-art:after{background:linear-gradient(180deg,#050505d9,transparent 35%,#05050520 58%,#050505e8),linear-gradient(90deg,#07070755,transparent 60%,#07070745),repeating-linear-gradient(0deg,transparent 0 3px,#fff000 4px)}
+.anime-art-label{background:#080808b8;padding:7px 8px;border-left:2px solid #e13c50}
+.anime-art-bottom{background:#080808b8;padding:7px 9px}
+.anime-card{position:relative}
+.anime-card:after{content:"";position:absolute;top:10px;right:10px;width:8px;height:8px;border-top:1px solid #d7b28b;border-right:1px solid #d7b28b;pointer-events:none}
+.anime-card-copy blockquote{font-style:italic;font-weight:500}
+.quote-wall{padding-top:clamp(90px,11vw,145px);padding-bottom:clamp(90px,11vw,145px);border-top:1px solid var(--line);overflow:hidden}
+.quote-wall-heading{display:grid;grid-template-columns:1.1fr .6fr;gap:50px;align-items:end;margin-bottom:42px}
+.quote-wall-heading .kicker{margin:0 0 20px;color:#d7b28b;font-size:9px;letter-spacing:1.7px}
+.quote-wall-heading h2{font-size:clamp(44px,7vw,88px);line-height:.91;letter-spacing:-.075em;margin:0}
+.quote-wall-heading h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px #d7b28b}
+.quote-wall-heading>p{font-size:13px;line-height:1.9;color:#929292;max-width:360px;margin:0 0 4px}
+.graffiti-wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;position:relative}
+.graffiti-wall:before{content:"";position:absolute;z-index:-1;inset:-22px;background:radial-gradient(ellipse at 20% 20%,#e13c5012,transparent 45%),radial-gradient(ellipse at 80% 70%,#d7b28b0b,transparent 45%)}
+.graffiti-note{min-height:235px;position:relative;padding:22px 22px 26px;overflow:hidden;isolation:isolate;border:1px solid #ffffff18;background:#101012;transform:rotate(-1deg);transition:transform .3s,border-color .3s}
+.graffiti-note:nth-child(2n){transform:rotate(1.3deg);background:#111014}
+.graffiti-note:hover{transform:rotate(0) translateY(-5px);border-color:#ffffff50}
+.graffiti-note:before{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;background-image:radial-gradient(#ffffff 0.6px,transparent .7px);background-size:7px 7px;mask-image:linear-gradient(120deg,#000,transparent 70%)}
+.graffiti-note:after{content:"";position:absolute;right:-20px;bottom:-42px;width:135px;height:135px;border:2px solid currentColor;border-radius:50%;opacity:.14;box-shadow:0 0 0 12px currentColor,0 0 0 24px currentColor}
+.graffiti-note small{display:block;margin-top:20px;font:8px var(--mono);letter-spacing:1px;color:#aaa}
+.graffiti-note p{font-size:clamp(16px,1.8vw,22px);font-weight:600;letter-spacing:-.04em;line-height:1.35;max-width:300px;margin:18px 0 0;color:#eee}
+.graffiti-note>b{position:absolute;right:17px;bottom:5px;font:700 62px/1 'Archivo Black',sans-serif;color:currentColor;opacity:.45;transform:rotate(-12deg)}
+.tag-scribble{display:inline-block;font:italic 900 clamp(24px,3vw,38px)/.9 'Archivo Black',sans-serif;letter-spacing:-.08em;text-transform:uppercase;color:currentColor;transform:rotate(-5deg);text-shadow:2px 2px 0 #000;filter:drop-shadow(0 0 7px currentColor)}
+.note-red{color:#ff4c65;border-top:3px solid #ff4c65;background:linear-gradient(145deg,#321219,#100b0e)}
+.note-blue{color:#7bc7ff;border-top:3px solid #7bc7ff;background:linear-gradient(145deg,#102333,#0a0d12)}
+.note-cream{color:#e6d3a7;border-top:3px solid #e6d3a7;background:linear-gradient(145deg,#29251b,#11100d)}
+.note-purple{color:#c3a0ff;border-top:3px solid #c3a0ff;background:linear-gradient(145deg,#25172f,#100d13)}
+.note-green{color:#a3dfb1;border-top:3px solid #a3dfb1;background:linear-gradient(145deg,#12281e,#0c100e)}
+.note-orange{color:#ffb26b;border-top:3px solid #ffb26b;background:linear-gradient(145deg,#2c1a10,#110d0a)}
+.wall-footer{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid #ffffff1c;margin-top:25px;padding-top:15px;color:#686868;font:8px var(--mono);letter-spacing:1.2px}
+.wall-footer span:nth-child(2){color:#d7b28b}
+.universe .gallery-main{border-color:#e13c5044}
+.universe .gallery-main:before{content:"";position:absolute;z-index:3;inset:12px;border:1px dashed #ffffff3b;pointer-events:none}
+.gallery-label{background:#080808bd;padding:8px 10px;border-left:2px solid #e13c50}
+.gallery-caption{font-family:'Archivo Black','Space Grotesk',sans-serif;text-shadow:0 2px 18px #000}
+.interest-strip span{border-style:dashed!important;transform:rotate(-1deg)}
+.interest-strip span:nth-child(2n){transform:rotate(1deg)}
+.manifesto{background:radial-gradient(ellipse at center,#2c1117,#080808 65%)!important}
+.manifesto:after{content:"SOUZA";position:absolute;right:-3%;bottom:-18%;font:italic 900 clamp(90px,20vw,280px)/.8 'Archivo Black',sans-serif;letter-spacing:-.1em;color:#ffffff04;z-index:-1;pointer-events:none}
+.contact .kicker{color:#d7b28b}
+.contact h2 em{-webkit-text-stroke-color:#d7b28b}
+.contact .button-primary{background:#b51f32!important}
+@media(max-width:760px){.quote-wall-heading{grid-template-columns:1fr;gap:20px}.quote-wall-heading>p{max-width:520px}.graffiti-wall{grid-template-columns:repeat(2,minmax(0,1fr))}.graffiti-note{min-height:220px;padding:18px}.hero-copy:after{right:8px;bottom:-22px}.hero:before{top:5%;right:-2%}}
+@media(max-width:470px){.graffiti-wall{grid-template-columns:1fr}.graffiti-note{min-height:190px}.graffiti-note p{font-size:20px}.wall-footer{flex-direction:column;gap:10px}.hero-copy:after{font-size:9px}.sticker{right:5px!important}}
+@media(prefers-reduced-motion:reduce){.graffiti-note,.anime-card{transition:none}}
