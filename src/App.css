@@ -154,3 +154,6 @@ footer{background:#050505;border-top:1px solid #ffffff2b}
 @keyframes stickerFloat{0%,100%{translate:0 0;rotate:1deg}50%{translate:0 -5px;rotate:3deg}}
 @media(max-width:650px){.art-frame:after{animation-duration:12s}.project:hover,.skill-card:hover{transform:none}}
 @media(prefers-reduced-motion:reduce){.sticker{animation:none}.art-frame:after{animation:none}.project,.skill-card{transition:none}}
+
+/* Final motion tuning: keep hover effects responsive and calm. */
+@media(hover:hover){.text-link:hover{letter-spacing:.08em;transition:letter-spacing .25s ease}.art-dot{transition:transform .2s ease,background .2s ease}.art-dot:hover{transform:translateY(-2px)}}
