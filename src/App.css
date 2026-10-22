@@ -734,3 +734,154 @@ html,body,.portfolio{background:#080707;color:#f3e8d8}
 footer{border-top-color:#49342c}
 @media(max-width:760px){.nav{background:#100b0af7;border-bottom-color:#49342c}.hero{background:radial-gradient(ellipse at 50% 35%,#642a251a,transparent 45%),#080707}.project{border-bottom-color:#49342c}.anime-card{box-shadow:0 14px 35px #0006}}
 @media(prefers-reduced-motion:reduce){.hero-art,.motion-card,.project,.lab-shell:before{animation:none!important}}
+
+
+/* MOBILE REPAIR + KANEKI VISUAL PASS */
+*,*::before,*::after{box-sizing:border-box}
+html{width:100%;max-width:100%;overflow-x:clip;scroll-padding-top:82px}
+body{width:100%;max-width:100%;margin:0;overflow-x:clip}
+#root,.portfolio{width:100%;max-width:100%;min-width:0;overflow-x:clip}
+img{max-width:100%;height:auto}
+button,input,textarea,select{font:inherit;max-width:100%}
+.hero-art,.hero-copy,.intro-grid,.intro-copy,.section,.lab-shell,.lab-main,.project-content,.gallery,.gallery-side,.anime-grid,.anime-card,.anime-card-copy{min-width:0}
+.hero-art{isolation:isolate}
+.art-frame{position:relative;overflow:hidden}
+.art-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.art-overlay{pointer-events:none}
+.anime-motion-strip{grid-template-columns:repeat(4,minmax(0,1fr));align-items:stretch}
+.motion-card{min-width:0;overflow:hidden}
+.motion-card img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.motion-kaneki img{object-position:center 20%;filter:contrast(1.05) saturate(.82)}
+.project-actions{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.project-demo{max-width:100%;white-space:normal;text-align:center}
+.lab-shell{grid-template-columns:minmax(0,220px) minmax(0,1fr)}
+.lab-menu-item{min-width:0;overflow-wrap:anywhere}
+.lab-widget,.lab-form,.lab-actions,.converter-options,.quiz-answers{min-width:0;max-width:100%}
+.lab-form input{width:100%;min-width:0}
+.palette-swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.palette-swatches button{min-width:0}
+.gallery-main{width:100%;min-width:0;overflow:hidden}
+.gallery-main img{width:100%;height:100%;object-fit:cover}
+.graffiti-note,.skill-card,.step,.anime-card{min-width:0;overflow-wrap:anywhere}
+@media(max-width:900px){
+ .hero{grid-template-columns:minmax(0,1fr);gap:30px}
+ .hero-art{width:min(100%,560px);max-width:100%;margin-inline:auto}
+ .art-frame{height:clamp(340px,78vw,520px)}
+ .lab-shell{grid-template-columns:minmax(0,1fr)}
+ .lab-menu{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .lab-menu-title{grid-column:1/-1}
+ .anime-motion-strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .motion-card,.motion-card:first-child{height:250px;grid-column:auto}
+}
+@media(max-width:650px){
+ html{scroll-padding-top:72px}
+ .topbar,.topbar-scrolled{height:64px;padding:0 16px;gap:12px}
+ .brand{min-width:0;gap:8px}
+ .brand-mark{flex:0 0 auto}
+ .brand>span:last-child{font-size:12px!important;white-space:nowrap}
+ .menu-toggle{flex:0 0 auto;padding:10px 11px;font-size:9px}
+ .nav,.topbar-scrolled .nav{top:63px;max-height:calc(100dvh - 64px);overflow-y:auto;padding:12px 20px 22px}
+ .hero{display:flex;flex-direction:column;align-items:stretch;gap:28px;padding:82px 20px 40px}
+ .hero-copy{width:100%;max-width:100%}
+ .hero h1{font-size:clamp(58px,16vw,88px);line-height:.92;overflow-wrap:anywhere}
+ .hero-description{max-width:100%;font-size:13px;line-height:1.75}
+ .hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+ .button-primary{max-width:100%;white-space:normal;line-height:1.4}
+ .hero-meta{display:flex;flex-wrap:wrap;gap:8px 14px}
+ .hero-art{width:100%;max-width:100%;align-self:stretch;margin:0}
+ .art-frame{width:100%;height:clamp(320px,105vw,460px);border-radius:3px}
+ .art-frame img{object-position:center 15%}
+ .sticker{right:6px!important;top:-15px}
+ .art-index{flex-wrap:wrap}
+ .section,.lab-section{width:100%;padding-inline:20px}
+ .section-top{display:flex;flex-wrap:wrap;gap:10px}
+ .section-no{font-size:8px}
+ .section-side{font-size:7px;max-width:48%;overflow-wrap:anywhere}
+ .intro-grid{grid-template-columns:minmax(0,1fr);gap:22px}
+ .intro-grid h2,.skills-heading h2,.work-heading h2,.process-heading h2{font-size:clamp(38px,11vw,58px);overflow-wrap:anywhere}
+ .anime-motion-strip{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:28px}
+ .motion-card,.motion-card:first-child{height:230px;min-width:0;grid-column:auto}
+ .motion-card-code,.motion-card strong,.motion-card small{left:13px;right:13px}
+ .motion-card strong{font-size:15px;overflow-wrap:anywhere}
+ .motion-card small{font-size:7px}
+ .facts{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}
+ .facts strong{font-size:10px;overflow-wrap:anywhere}
+ .skill-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .skill-card{padding:14px;min-height:150px}
+ .skill-card h3{font-size:clamp(13px,4vw,17px);overflow-wrap:anywhere}
+ .work-heading,.skills-heading,.process-heading,.lab-heading{display:block}
+ .work-heading>p,.skills-heading>p,.process-heading>p,.lab-heading p{max-width:100%;margin-top:16px}
+ .project-tools{grid-template-columns:minmax(0,1fr);gap:12px}
+ .project-search{width:100%;min-width:0}
+ .project-search input{width:100%;min-width:0}
+ .filter-row{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+ .filter-row>div{display:flex;flex-wrap:wrap;gap:6px}
+ .filter{font-size:7px;padding:8px}
+ .projects{width:100%;min-width:0}
+ .project{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;padding:22px 0}
+ .project-number{grid-row:1;grid-column:1}
+ .project-symbol{display:none}
+ .project-content{grid-column:2;min-width:0}
+ .project h3{font-size:clamp(18px,5.4vw,24px);overflow-wrap:anywhere}
+ .project-meta{display:flex;flex-wrap:wrap;gap:6px}
+ .project p{font-size:12px;line-height:1.7}
+ .project-actions{align-items:stretch}
+ .project-demo{flex:1 1 140px;font-size:8px;padding:10px 8px}
+ .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .step{padding:16px 10px 18px 0;min-width:0}
+ .step+.step{padding-left:12px}
+ .step h3{font-size:15px;overflow-wrap:anywhere}
+ .step p{font-size:11px;line-height:1.7}
+ .lab-shell{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-width:0}
+ .lab-menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:8px}
+ .lab-menu-item{font-size:7px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;padding:10px 6px}
+ .lab-menu-item b{display:none}
+ .lab-windowbar{display:flex;gap:7px;justify-content:space-between;min-width:0}
+ .lab-windowbar>span:nth-child(2){overflow-wrap:anywhere}
+ .lab-widget{padding:18px 12px;min-height:unset;width:100%;overflow:hidden}
+ .calc-display{max-width:100%;overflow-x:auto}
+ .calc-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .calc-key{min-width:0;padding:12px 4px}
+ .lab-actions{display:flex;flex-wrap:wrap;gap:8px}
+ .lab-actions .lab-button{flex:1 1 130px}
+ .palette-swatches{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+ .palette-swatches button{height:84px}
+ .palette-swatches button span{font-size:6px;overflow-wrap:anywhere}
+ .converter-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+ .quiz-answers{display:grid;grid-template-columns:minmax(0,1fr)}
+ .anime-heading,.quote-wall-heading{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+ .anime-grid{grid-template-columns:minmax(0,1fr);gap:16px}
+ .anime-art{height:210px;min-height:0}
+ .anime-card-copy{padding:18px}
+ .graffiti-wall{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .graffiti-note{min-height:180px;padding:14px}
+ .graffiti-note p{font-size:clamp(14px,4.2vw,18px);overflow-wrap:anywhere}
+ .gallery{grid-template-columns:minmax(0,1fr);gap:20px}
+ .gallery-main{min-height:320px;height:82vw;max-height:460px}
+ .gallery-side{min-width:0}
+ .interest-strip{display:flex;flex-wrap:wrap;gap:12px}
+ .manifesto{padding:45px 20px;min-height:300px;overflow:hidden}
+ .manifesto>p{font-size:clamp(27px,8vw,44px);line-height:1.2}
+ .manifesto>div:not(.manifesto-orbit){flex-wrap:wrap;gap:10px}
+ .contact{padding-top:72px;padding-bottom:55px}
+ .contact h2{font-size:clamp(43px,12.5vw,72px);overflow-wrap:anywhere}
+ .contact-description{font-size:13px;line-height:1.8;max-width:100%}
+ .contact-actions{display:flex;flex-wrap:wrap;gap:12px}
+ .contact-meta{display:flex;flex-direction:column;align-items:flex-start;gap:10px;overflow-wrap:anywhere}
+ footer{display:flex;flex-wrap:wrap;gap:16px;padding:24px 20px}
+ footer>span{order:3;width:100%}
+ .back-top{right:14px;bottom:14px}
+}
+@media(max-width:380px){
+ .hero,.section,.lab-section{padding-inline:15px}
+ .hero h1{font-size:clamp(54px,15.5vw,65px)}
+ .skill-grid,.facts,.graffiti-wall{grid-template-columns:minmax(0,1fr)}
+ .motion-card,.motion-card:first-child{height:210px}
+ .project{grid-template-columns:18px minmax(0,1fr);gap:8px}
+ .project-meta{font-size:7px}
+ .contact h2{font-size:clamp(40px,12vw,52px)}
+ .brand>span:last-child{font-size:11px!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .motion-card,.hero-art,.art-frame,.project,.skill-card{animation:none!important;transition:none!important}
+}
